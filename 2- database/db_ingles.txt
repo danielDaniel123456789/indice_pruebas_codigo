@@ -1,0 +1,148 @@
+ drop database if exists db_ingles;  create database db_ingles; use db_ingles;
+ 
+ 
+CREATE TABLE `failed_jobs` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `uuid` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `connection` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `queue` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `payload` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `exception` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `failed_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+
+
+CREATE TABLE `personal_access_tokens` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `tokenable_type` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `tokenable_id` bigint(20) UNSIGNED NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `token` varchar(64) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `abilities` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `last_used_at` timestamp NULL DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+
+CREATE  TABLE users (
+ id int auto_increment primary key,
+name VARCHAR(255) not null,
+bloquear boolean default false,
+email   VARCHAR(255) not null unique,
+email_verified_at timestamp,
+activo boolean default 1,
+password  VARCHAR(255),
+telefono int,
+remember_token VARCHAR(255),
+created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE  TABLE password_resets(
+email  varchar(255) unique not null,
+token varchar(255) unique not null,
+created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP)
+;
+
+
+create table vocabularios(
+ id INT NOT NULL AUTO_INCREMENT  PRIMARY KEY ,
+  espayol varchar(100)  CHARACTER SET utf8 COLLATE utf8_spanish_ci DEFAULT NULL unique,
+  ingles varchar(100) CHARACTER SET utf8 COLLATE utf8_spanish_ci DEFAULT NULL,
+  fonetico varchar(100) CHARACTER SET utf8 COLLATE utf8_spanish_ci DEFAULT NULL,
+  imagen text,
+  gif text
+   );
+
+create table links(
+ id INT NOT NULL AUTO_INCREMENT  PRIMARY KEY ,
+  nombre varchar(50),
+  link varchar(100) CHARACTER SET utf8 COLLATE utf8_spanish_ci DEFAULT NULL,
+ user_id int not null,
+ foreign key (user_id) REFERENCES users(id)  on update cascade on delete cascade
+ );
+
+create table aprendidas(
+ id INT NOT NULL AUTO_INCREMENT  PRIMARY KEY ,
+  aprendida boolean default 1,
+  nivel int default 0,
+  vocabulario_id  int not null, 
+ user_id int not null,
+ foreign key (user_id) REFERENCES users(id)  on update cascade on delete cascade
+ );
+
+
+DELIMITER ;;
+   create procedure sp_vocabulario_por_usuario (in numero_usuario int )
+   begin
+   
+     set @id_ultimaPalabraAprendida= (select vocabulario_id from aprendidas r 
+       		where r.user_id=numero_usuario  order by r.id desc limit 1)+1;
+
+     select *from vocabularios where vocabularios.id=@id_ultimaPalabraAprendida ;
+   END;;
+DELIMITER ;;
+
+DELIMITER ;;
+   create procedure sp_aumentar_un_nivel (in numero_usuario int,in vocabulario_id int  )
+   begin
+   
+  @nivel= (select nivel from aprendidas p where p.user_id=numero_usuario and p.vocabulario_id=vocabulario_id);
+   
+       UPDATE aprendidas
+          SET nivel= (@nivel+1)
+          and user_id=numero_usuario
+          WHERE vocabulario_id=vocabulario_id;
+   END;;
+DELIMITER ;;
+
+   
+  DELIMITER ;;
+   create procedure xxxxxxxxxxxxsp_insert_costos (in numero_user_id int, in numero_order_id int)
+   begin
+    INSERT INTO materials (valor, detalle,user_id,order_id )
+    SELECT value, name, numero_user_id,numero_order_id
+   FROM indirects;  
+   END;;
+  DELIMITER ;
+  
+   
+  DELIMITER ;;
+   create procedure xxxxxxxxxxxxxxxsp_actualizar_inversion (in numero_order_id int)
+   begin
+   
+    set @sumarInversion= (select sum(valor) from materials r where r.order_id=numero_order_id);
+    
+  update orders e set  e.inversion=@sumarInversion where e.id=numero_order_id;
+    
+   END;;
+   DELIMITER ;
+   
+   
+      DELIMITER ;;
+   create procedure xxxxxxxxxxsp_insert_orden (in numero_user_id int, in nameOrder varchar(200) )
+   begin
+   
+    INSERT INTO orders (name, user_id) values(nameOrder,numero_user_id );
+       
+         set @id_orders= (select id from orders r where r.user_id=numero_user_id order by r.id desc limit 1);
+    
+    INSERT INTO materials (valor, detalle,user_id,order_id )
+   SELECT value, name,numero_user_id,@id_orders
+   FROM indirects;
+    
+   END;;
+   DELIMITER ;
+   
+   
+  
+   
+   
+   
+
+
+
+  
+

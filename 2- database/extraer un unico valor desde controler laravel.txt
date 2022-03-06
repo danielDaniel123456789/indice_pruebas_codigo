@@ -1,0 +1,8 @@
+extraer un unico valor desde controler laravel
+--------------------------------
+
+  $data = DB::select('select id from aprendidas r 
+  where r.user_id=1 and r.vocabulario_id= 1');
+  // $existeEsaPalabra =  DB::statement(DB::raw('CALL sp_esta_palabra_ya_esta_agregada(?, ?)'),	array($this->idUser(),99990 ));
+
+   return $data[0]->id;

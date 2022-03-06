@@ -1,0 +1,12 @@
+mysql procedure update
+----------------------------------------
+
+DELIMITER ;;
+   create procedure sp_aumentar_un_nivel (in numero_usuario int,in id_vocabulario int  )
+   begin
+   
+       UPDATE aprendidas
+          SET nivel=5
+          WHERE id=1;
+   END;;
+DELIMITER ;;

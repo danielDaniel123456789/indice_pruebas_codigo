@@ -1,0 +1,15 @@
+
+laravel-- llamar procedimiento almacenados
+
+opcion1: DB::statement(DB::raw('CALL sp_actualizar_inversion(?)'),	array($request->id_actualizar));
+
+ opcion2:    $data = DB::select('CALL sp_obtener_ingresos_plantillaMotos(?,?,?)', array($this->idUser(),$fechaDomingoPasado,$sumarUnDia ));
+ 
+ opcion3: 
+ 
+ -->$data = DB::select('select * from vocabularios');
+ 
+ __>$libros = DB::select('select * from books where name like :busqueda limit :cuantos', array(
+'busqueda' => "%$cadena%",
+'cuantos' => $num
+));

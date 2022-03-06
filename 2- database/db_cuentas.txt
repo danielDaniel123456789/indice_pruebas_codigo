@@ -1,0 +1,178 @@
+ drop database if exists db_cuentas;  create database db_cuentas; use db_cuentas;
+
+CREATE  TABLE users (
+ id int auto_increment primary key,
+name VARCHAR(255) not null,
+bloquear boolean default false,
+email   VARCHAR(255) not null unique,
+email_verified_at timestamp,
+activo boolean default 1,
+password  VARCHAR(255),
+telefono int,
+remember_token VARCHAR(255),
+created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE  TABLE password_resets(
+email  varchar(255) unique not null,
+token varchar(255) unique not null,
+created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP)
+;
+
+
+create table settings(
+ id INT NOT NULL AUTO_INCREMENT  PRIMARY KEY ,
+ user_id int not null,
+ tiempo_max_direccionar int default 0,
+ foreign key (user_id) REFERENCES users(id)  on update cascade on delete cascade
+
+ );
+ 
+
+  create table indirects(
+ id INT NOT NULL AUTO_INCREMENT  PRIMARY KEY ,
+ name varchar(200),
+ value int,
+ user_id int not null,
+ foreign key (user_id) REFERENCES users(id)  on update cascade on delete cascade
+ );
+ 
+ create table invoices(
+ id INT NOT NULL AUTO_INCREMENT  PRIMARY KEY ,
+ date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+ amount int,
+ user_id int not null,
+ foreign key (user_id) REFERENCES users(id)  on update cascade on delete cascade
+ );
+
+create table orders(
+ id INT NOT NULL AUTO_INCREMENT  PRIMARY KEY ,
+ date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+ name VARCHAR(200) not null,
+ user_id int not null,
+ activo boolean default 1,
+ terminado boolean default 0,
+ monto int default 0,
+ perdidas int default 0,
+ inversion int default 0,
+ ganancia int default 0
+
+ );
+
+
+ create table materials(
+  id INT NOT NULL AUTO_INCREMENT  PRIMARY KEY ,
+  valor int,
+  detalle VARCHAR(200) not null,
+ user_id int not null,
+ order_id int not null,
+ foreign key (order_id) REFERENCES orders(id)  on update cascade on delete cascade
+ );
+ 
+  create table horas(
+  id INT NOT NULL AUTO_INCREMENT  PRIMARY KEY ,
+   date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  activo boolean default 1,
+ valor int,
+ user_id int not null,
+ order_id int not null,
+ foreign key (order_id) REFERENCES orders(id)  on update cascade on delete cascade
+ );
+ 
+ create table losses(
+  id INT NOT NULL AUTO_INCREMENT  PRIMARY KEY ,
+ value int,
+  detail VARCHAR(200) not null,
+ user_id int not null,
+ order_id int not null,
+ foreign key (order_id) REFERENCES orders(id)  on update cascade on delete cascade
+ );
+ 
+ create table amortizations(
+  id INT NOT NULL AUTO_INCREMENT  PRIMARY KEY ,
+     date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    value int,
+   user_id int not null,
+   order_id int not null,
+     activo boolean default 1,
+   foreign key (order_id) REFERENCES orders(id)  on update cascade on delete cascade
+ );
+
+ DELIMITER ;;
+create procedure xxxxxxxxxxxxxxxxxxxsp_get_ingresos(id int)
+BEGIN
+select * from orders ;
+end;
+DELIMITER ;;
+
+  
+
+
+
+    DELIMITER ;;
+   create procedure sp_insert_costos (in numero_user_id int, in numero_order_id int)
+   begin
+    INSERT INTO materials (valor, detalle,user_id,order_id )
+    SELECT value, name, numero_user_id,numero_order_id
+   FROM indirects;
+    
+   END;;
+   DELIMITER ;
+   
+   DELIMITER ;;
+   create procedure sp_actualizar_inversion (in numero_order_id int)
+   begin
+   
+    set @sumarInversion= (select sum(valor) from materials r where r.order_id=numero_order_id);
+    
+  update orders e set  e.inversion=@sumarInversion where e.id=numero_order_id;
+    
+   END;;
+   DELIMITER ;
+   
+   
+     DELIMITER ;;
+   create procedure sp_insert_orden (in numero_user_id int, in nameOrder varchar(200) )
+   begin
+   
+    INSERT INTO orders (name, user_id) values(nameOrder,numero_user_id );
+       
+         set @id_orders= (select id from orders r where r.user_id=numero_user_id order by r.id desc limit 1);
+    
+    INSERT INTO materials (valor, detalle,user_id,order_id )
+   SELECT value, name,numero_user_id,@id_orders
+   FROM indirects;
+    
+   END;;
+   DELIMITER ;
+   
+
+   DELIMITER ;;
+   create procedure sp_obtener_ingresos_plantillaMotos (in numero_usuario int, in fechaInicio date, in fechaFin date )
+   begin
+     
+select o.id, o.name, o.date, sum(h.valor) as horas, (select sum(m.valor) from materials m where m.order_id=h.order_id) as materiales from horas h inner join orders o where h.order_id=o.id 
+and o.user_id=numero_usuario
+ and o.date >fechaInicio
+and o.date <=fechaFin
+ group by h.order_id
+ order by o.id desc;
+   
+
+  
+   END;;
+   DELIMITER ;
+   
+   
+   
+   
+  
+   
+   
+   
+
+
+
+  
+

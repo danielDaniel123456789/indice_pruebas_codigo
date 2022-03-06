@@ -1,0 +1,12 @@
+Instalacion
+
+Descargar e instalar Java JDK 8 o superior 
+--> sudo apt install default-jre
+-->sudo apt install default-jdk
+**instalar neetbeans video: https://www.youtube.com/watch?v=Kiv5_5wiqeU
+
+
+
+---------------------------------
+abrir neetbeans-->tool--plugins-->Available Plugins-->buscar: GLUON, E INSTALAR.
+

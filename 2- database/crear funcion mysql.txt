@@ -1,0 +1,33 @@
+crear funcion mysql
+-----------------------------------
+
+DELIMITER $$
+
+CREATE FUNCTION crearContact (email VARCHAR(100),address VARCHAR(100), firstname VARCHAR(20), lastname VARCHAR(20), phone VARCHAR(16)) RETURNS INT
+
+BEGIN 
+
+INSERT INTO
+ contact(firstname,lastname,address,email,phonenumber)
+VALUES
+(firstname,lastname,address,email,phone);
+
+RETURN last_insert_id();
+
+END$$
+
+DELIMITER ;
+
+---------------------------------------------
+DELIMITER $$
+CREATE FUNCTION sp_esta_palabra_ya_esta_agregada (numero_usuario int, id_palabra int) RETURNS int
+BEGIN 
+ set @id= ( select id from aprendidas r 
+       		where r.user_id=numero_usuario and r.vocabulario_id= id_palabra);
+   IF @id > 0 THEN
+      return 1;
+   ELSE
+     return 0;
+   END IF;
+END$$
+DELIMITER ;
