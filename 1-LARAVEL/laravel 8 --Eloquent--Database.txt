@@ -1,0 +1,42 @@
+crear model:php artisan make:model Flight
+-----------UPDATE-----------------------------------   
+use App\Models\Series;
+Series::where('id', $request->serie_id)
+        ->update(['habilitar' => true]);
+
+-----------CREATE-------------------------
+use App\Models\Series;
+   $numero = Series::create([
+                'numero'=>8,
+                'numero_serie' => $i,
+                'user_id' => 1,
+            ]);
+-----------CONSULTAS----------------------------------
+use Illuminate\Support\Facades\DB;
+$misVervos = DB::table('vervos')
+             ->join('detalle_vervos', 'vervos.id', '=', 'detalle_vervos.vervo_id')
+             
+             ->where('detalle_vervos.user_id','=',$id)
+             ->where('detalle_vervos.habilitar','=','1')
+             ->select('vervos.*','detalle_vervos.id as myIdDetalle')
+             ->inRandomOrder()->limit(1)
+             ->get();
+
+-----------DELETE----------------------------------
+use App\Models\Flight;
+$flight = Flight::find(1);
+$flight->delete();
+
+--------------------------------------------------------
+ UPDATE CREATE
+$flight = Aprendida::updateOrCreate(
+                ['id' => $request->vocabulario_id],
+                ['vocabulario_id' => $request->vocabulario_id,
+                'user_id' => $this->idUser()]
+            );
+ -----------------------------------------------------
+Eliminar modelos mediante consultas
+$deletedRows = Flight::where('active', 0)->delete();
+
+----------------------	where link--------------------
+->where('vendedors.nombre_apellido','like',$usuario)->get();

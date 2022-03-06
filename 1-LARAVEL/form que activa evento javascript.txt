@@ -1,0 +1,8 @@
+//form que activa evento javascript 
+
+ <form action="#" onsubmit="return validateFormOnSubmit(this);">
+  @csrf
+
+	<input type="texto" class="form-control" id="nombre"  name="nombre">
+<button type="submit" class="btn btn-primary">Submit</button>
+</form>

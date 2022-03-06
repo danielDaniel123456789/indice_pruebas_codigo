@@ -1,0 +1,36 @@
+
+link: https://www.youtube.com/watch?v=0bA1hh0ocvE
+
+1-- crear de una: modelo, factory, controller 
+ php artisan make:model Articulo -mrf --api 
+ 
+2-- agregar nuevos campos a migracion  (ir al model y agregarlos manualmente)
+
+3-- ir a migrations y agregar nuevos campos  antes de ejecutar.
+
+   $table->string('nombre',100);
+            $table->text('descripcion');
+            $table->integer('stock');
+4-- voy a fctory-->articuloFactory  y agrego accion..
+
+         'nombre' => $this->faker->name,
+            'descripcion' => $this->faker->paragraph(),
+            'stock' => $this->faker->numberBetween(1,999),
+            
+5-- ir a los seeders indico el seeders a ejecutar
+    \App\Models\Articulos::factory(10)->create();
+	
+6- agregar al packege.json  vue --auth 
+  -->php artisan ui vue --auth
+  luego-->npm install
+  
+  7-- correr migraciones y seeders
+  -->php artisan migrate:fresh --seed
+  
+  8--escuchar y actualizar cambios en vue o javascript
+  -->npm run watch
+  
+  9--crear 
+      -->    use App\Models\Articulo;
+      --> $articulo = new Articulo;
+      --> $articulo->create($request->all());

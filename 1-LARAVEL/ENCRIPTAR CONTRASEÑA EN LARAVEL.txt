@@ -1,0 +1,10 @@
+ ENCRIPTAR CONTRASEÑA EN LARAVEL---------------------------
+
+**dentrol del controller***********
+use Illuminate\Support\Facades\Hash;
+
+//recivir variable
+ $password = $request->contraseya_vendedor;
+
+//encriptarla
+        $hashedPassword = Hash::make($password);

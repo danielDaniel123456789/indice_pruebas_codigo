@@ -1,0 +1,14 @@
+*************cerrar sesion******************
+
+use Illuminate\Support\Facades\Auth;
+
+--controller
+Route::get('/cerrarCesion', [App\Http\Controllers\AdminController::class, 'cerrarCesion'])->name('cerrarCesion');
+
+
+--metodo en el controller 
+
+public function cerrarCesion(){
+    Auth::logout();
+    return redirect('/home');
+  }

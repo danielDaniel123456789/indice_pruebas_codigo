@@ -1,0 +1,111 @@
+
+
+
+laravel 8 install->
+-->composer global require laravel/installer (solo una vez se hace)
+-->composer create-project laravel/laravel example-app4
+-->cd example-app
+ 
+//xxxxx: composer create-project laravel/laravel example-app
+//xxxx version 8--> composer create-project laravel/laravel:^8.0 example-app
+//xxx version 5-->composer  create-project laravel/laravel yourNameProject  "5.5.*"
+cmd ejecutar--> php artisan serve
+
+crear e insertar base de datos
+archivo .env -->insertar el nombre de la base de datos que creaste.
+----------------------------
+
+paquete Jetstream -->composer require laravel/jetstream
+-----------------------------------------------------------------
+dos opciones para reautenticacion:
+1--autenticacion=>
+-->composer require laravel/ui --dev
+-->php artisan ui vue --auth
+
+2-- Instalar Jetstream con Livewire
+-->php artisan jetstream:install livewire
+
+en caso de usar tener grupos =>
+-->php artisan jetstream:install livewire --teams
+--------------------------------------------------------------------------------------
+Finalizacion
+-->npm install -->npm run dev -->php artisan migrate
+
+------------------------------------------------------------------------------------------
+Cable de alta tensión en caso de usar Jetstream -->php artisan vendor:publish --tag=jetstream-views
+
+A continuación, se debe personalizar los IVS ubicadas en los
+resources/views/vendor/jetstream/components/application-logo.blade.php,
+resources/views/vendor/jetstream/components/authentication-card-logo.blade.phpy
+resources/views/vendor/jetstream/components/application-mark.blade.php
+
+----------------------------------------------------------------------
+crear Controllers=>
+-->php artisan make:controller PhotoController --resource
+----------------------------------------------------------------------
+crear modelo=> php artisan make:model nombreModelo
+----------------------------------------------------------------------
+redireccionar y enviar archivo routes/web.php
+-->use App\Http\Controllers\PhotoController;
+-->Route::resource('photos', PhotoController::class);
+
+web router llamar controller por individial->
+use App\Http\Controllers\LoteriaController;
+Route::resource('loteria', LoteriaController::class);
+Route::post('activar_numeros', [LoteriaController::class, 'activar_numeros'])->name('activar_numeros');
+Route::get('/desactivarnumeros', [App\Http\Controllers\HomeController::class, 'desactivar'])->name('desactivar');
+
+dentro del modelo recuerda-->
+
+use HasFactory;
+    public $timestamps = false;
+    protected $fillable = ['id','nombreVarable''];
+--> use Illuminate\Support\Facades\DB;
+-->  $numerosActivos = DB::table('numeros')->get();
+-->$todasCategorias = DB::select('call sp_get_categorias()');
+
+$todosNoticias = DB::select('call sp_get_noticias(?)', array($numeroCategoria));
+return view('informe', [
+'misCategorias'=>$todasCategorias,
+$todosNoticias $todosNoticias]);
+
+nota: como recoger esos archivos estando en la interfaz... hacer la pregunta desde con php
+-->
+@if ($misFotos !=null)
+@foreach ($misFotos as $item)
+
+@endforeach
+@endif
+
+--------------------------------------------------
+crear componentes >php artisan make:component Alert
+llamar componente--> x-alert />
+
+---------------------OBTENER USER ID----------------------------------
+use Illuminate\Support\Facades\Auth;
+$user = Auth::user();
+$id = Auth::id();
+
+----------REDIRECT-------------------------
+use Redirect;
+ return redirect('chances')->with('vendido', 'vendido');
+
+
+------------Exception;------------------------+
+use Exception;
+public function insertarVendedor(Request $request){
+try {
+
+  $this->buildXMLHeader();
+
+} catch (\Exception $e) {
+
+    return $e->getMessage();
+}
+}
+
+-------------------LIMPIAR CACHE URL dentro de web.php insertar-------------------------------------------
+Route::get('/clear-cache', function() {
+    Artisan::call('cache:clear');
+    return "Cache is cleared";
+});

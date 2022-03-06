@@ -1,0 +1,25 @@
+
+video: https://www.youtube.com/watch?v=Ywnm--aQ34s&t=13s
+
+Instalacià¸£à¸“n de Composer en Ubuntu 20.04
+este link tiene la firma: https://getcomposer.org/download/
+-----------------------------------------------------------------------------------
+1---sudo su*
+-------------------------------------------------------------------------------------mar
+2--descargar el instalador-->curl -sS https://getcomposer.org/installer -o composer-setup.php
+
+---------------------------------------------------------------------------------------------
+
+3-->ls (confirmar que se descargo) mostrara: composer-setup.php  snap
+-------------------------------------------------------------------------------------------------
+link>>>> https://getcomposer.org/download/
+4--copiar y pegar la firma, la cual cambia, buscar la firma en:--> https://getcomposer.org/download/
+ejemplo: tup.php'); } echo PHP_EOL;".......
+-----------Installer verified, indicar que tiene los permisos correctos-------------------------
+
+
+----------------------------------------------------------------------------------------------------------
+5---INSTALAR COMPOSER:::::::::---> sudo php composer-setup.php --install-dir=/usr/local/bin --filename=composer
+-->which composer (devuelve la ruta donde esta instalada)
+
+

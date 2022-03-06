@@ -1,0 +1,7 @@
+   
+   
+    return redirect('/home')->with("clave", "valor");
+  
+   @if(session("clave"))
+    <h1>ssssss</h1>
+@endif

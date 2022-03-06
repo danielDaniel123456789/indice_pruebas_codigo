@@ -6,3 +6,6 @@ git commit -m "first commit"
 git branch -M main
 git remote add origin https://github.com/danielDaniel123456789/indice_pruebas_codigo.git
 git push -u origin main
+
+user: danielDaniel123456789
+token inglesVocabulario---> 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

@@ -1,0 +1,14 @@
+--controller crear metodo globales----------
+
+
+use Illuminate\Support\Facades\Auth;
+*********dentrol de la clase controller**************
+
+ public function idUser() {
+        $id = Auth::id();
+        return $id;
+      }
+      public function nombreUser() {
+        $user = Auth::user()->name;
+        return $user;
+      }

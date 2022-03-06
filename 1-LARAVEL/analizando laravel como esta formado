@@ -1,0 +1,21 @@
+eliminar un paquete de Laravel 
+-->composer update  (Restaura la carpeta vendor)
+-->composer dump-autoload
+
+++++++++actualice npm a la última versión++++++++++
+--->npm i -g npm
+
+
+
++++++++++++++++++++++++++++++++++++++++++++
+errroor
+npm ERR! code ELIFECYCLE
+npm ERR! errno 2
+npm ERR! @ development: `mix`
+npm ERR! Exit status 2
+SOLUCION:::::::::::::::::::::::.....
+-->rm -rf node_modules
+-->rm package-lock.json yarn.lock
+-->npm cache clear --force
+-->npm install
+-->npm run dev
