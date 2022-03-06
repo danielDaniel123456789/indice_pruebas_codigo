@@ -1,0 +1,18 @@
+
+
+
+------------------------------------------------
+------------------------------------------------
+ABRIR ACCESO DIRECTO XAMP DESDE UBUNTO
+video: https://www.youtube.com/watch?v=Gj8JJn0n7fU
+TERMINAL
+ -->cd /opt/lampp
+--> ls
+*este archivo (puede cambiar dependiendo la version)-->ctlscript.sh  info     manager-linux-x64.run  properties.ini  uninstall
+*me interesa este dato>>>>>>>>>>>>  manager-linux-x64.run
+--->manager-linux-x64.run
+-->sudo ./manager-linux-x64.run
+------------------------------------------------
+------------------------------------------------
+
+
