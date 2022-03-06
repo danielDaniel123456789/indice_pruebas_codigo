@@ -1,0 +1,8 @@
+…or create a new repository on the command line
+echo "# indice_pruebas_codigo" >> README.md
+git init
+git add README.md
+git commit -m "first commit"
+git branch -M main
+git remote add origin https://github.com/danielDaniel123456789/indice_pruebas_codigo.git
+git push -u origin main
