@@ -10,5 +10,14 @@ git remote add origin https://github.com/danielDaniel123456789/indice_pruebas_co
 git push -u origin main
 
 user: danielDaniel123456789
-token ---> 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
-nuevo TOKEN--> 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
+nuevo TOKEN--> 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
+
+
+ACTUALIZAR REPOSITORIO.
+
+git add . //agregar archivos
+git commit -m "actualizacion 01"
+
+git remote add origin https://github.com/danielDaniel123456789/indice_pruebas_codigo.git
+git branch -M main  //indicar que es la rama principal del proyecto
+git push -u origin main  //enviar archivos al repositorio
