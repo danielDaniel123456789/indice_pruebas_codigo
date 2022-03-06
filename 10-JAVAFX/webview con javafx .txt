@@ -1,0 +1,33 @@
+
+javafx; 
+crear webview
+-------------------------------------------------------------
+
+new project->Simple JavaFX Maven Archetype (Gluom)
+
+Escribes nombre proyecto; JAVAFX_03
+actualiza la version: javafx-version (17 o...)
+
+-------------------------------------------------------------
+ 
+  ***No reconoce librerias; (    import javafx.application.Application;import javafx.fxml.FXMLLoader;import javafx.scene.Parent;import javafx.scene.Scene;import javafx.stage.Stage;.........)
+
+SOLUCION: 
+1- ir a la pagina : https://mvnrepository.com/
+2- buscar depencias --->  javafx-web, JavaFX Controls,  y javafx fxml , JavaFX openjfx, JavaFX Base
+3-copia esa dependencia, y lo pega en el archivo llamado ==> pom.xml
+4- sobre el proyecto, preciona click derecho en la carpeta depencias
+5- click sobre-->Download declare dependencias
+
+***module-info.java
+Nota: javafx02, reprenseta en nombre del proyecto
+ir al archivo module_info.java y agregar
+
+module com.mycompany.javafx02 {
+    requires javafx.controls;
+    requires javafx.fxml;    
+    requires javafx.web;
+
+    opens com.mycompany.javafx02 to javafx.fxml;
+    exports com.mycompany.javafx02;
+}

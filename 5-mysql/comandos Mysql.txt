@@ -1,0 +1,3 @@
+comandos Mysql-------------------------------------------
+
+remobrar-->ALTER TABLE nombre_tabla RENAME nombre_nuevo_tabla;

@@ -1,0 +1,10 @@
+ERROR 2002 (HY000): Can’t connect to local MySQL server through socket “/var/run/mysqld/mysqld.sock”
+Issue
+
+When the MySQL client connects to localhost, it attempts to use a socket file instead of TCP/IP. The socket file used is specified in /etc/mysql/my.cnf when the MySQL client is installed on the system. This is a MySQL socket file, which SingleStore DB does not use by default. Therefore, connecting with localhost attempts to connect to MySQL and not SingleStore DB.
+
+Solutions
+
+There are two solutions to solve this problem:
+
+Specify 127.0.0.1 as the host instead of localhost. That is, mysql -h 127.0.0.1 -u root instead of mysql -h localhost -u root. If you omit the host (mysql -u root), the MySQL client will implicitly use localhost.

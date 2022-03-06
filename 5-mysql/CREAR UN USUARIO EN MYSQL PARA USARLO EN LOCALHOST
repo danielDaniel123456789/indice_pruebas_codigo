@@ -1,0 +1,28 @@
+
+
+---------------------------------------------------------------
+CREAR UN USUARIO EN MYSQL PARA USARLO EN LOCALHOST
+----------------------------------------------------------------------
+->sudo mysql -u root -p   (debes escribir tu contraseña generada)
+pasword la cual puede cambiar si la modificas-->$!/DA1000%%%1000(/(YUxecd._8NJ)
+----------------------------------------------------------------------------------------------
+
+crear nuevo usuario -->CREATE USER 'mroot'@'%' IDENTIFIED BY 'Pass!1234';
+
+------------------------------------------------------------------------
+Notas: *.* (indica permisos a todas las tablas, y todas las base de datos
+NOta: WITH GRANT OPTION (importante ya que se le da permisos a un nuevo usuario
+Darle permnisos al usuario creado-->GRANT ALL PRIVILEGES ON *.* TO 'mroot'@'%' WITH GRANT OPTION;
+
+-------------------------------------------------------------------------------------
+   Limpiar privilegios   --->FLUSH PRIVILEGES;
+-----------------------------------------------------------------------------------------
+
+comprobar usuario genenerado	--->select user from mysql.user;
+-----------------------------------------------------------------------------------------
+cerrar conexion-->exit;
+---------------------------------------------------------------------------------------------
+corraborar que se genero el usuario::
+-->mysql -umroot -p
+contraseya es la cual genere, para este caso es--->Pass!1234
+---------------------------------------------------------------------------------------------

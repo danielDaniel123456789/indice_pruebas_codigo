@@ -1,0 +1,75 @@
+
+
+
+video: https://www.youtube.com/watch?v=pBECty2VWE8
+Instalación/Configuración de PhpMyadmin en Ubuntu 20.04
+--------------------------------------------------------------------------
+***********************************************************************************
+CREAR UN USUARIO PERSONALIZADO
+1- realizar coneccion a mysql 
+hay 3 opciones
+1-->sudo mysql -u root  
+2-->mysql -h 127.0.0.1 -u root
+3-->sudo mysql -u root -p   (debes escribir tu contraseña generada)
+----------------------------------------------------------------------------
+crear nuevo usuario:
+-->CREATE USER 'mroot'@'%' IDENTIFIED BY 'Pass!1234';
+------------------------------------------------------------------------------
+ 
+ darle todos lo permisos de usuario::
+   --->GRANT ALL PRIVILEGES ON *.* TO 'mroot'@'%' WITH GRANT OPTION;
+   
+   
+-------------------------------------------------------------------------------------
+   Limpiar privilegios:::
+   --->FLUSH PRIVILEGES;
+-----------------------------------------------------------------------------------------
+	comprobar usuario genenerado:
+	
+	--->select user from mysql.user;
+	--->SELECT user,authentication_string,plugin,host FROM mysql.user;
+--------------------------------------------------------------------------------------------
+cerrar conexion-->exit;
+---------------------------------------------------------------------------------------------
+corraborar que se genero el usuario::
+-->mysql -umroot -p
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+--------------------------------------------------------------------------
+INSTALANDO PHPMYADMI
+sudo apt install phpmyadmin php-mbstring php-zip php-gd php-json php-curl
+---------------------------------------------------------------------
+
+quitar el componente de validacion de contraseya, acceder con alguna de las dos::::
+1. sudo mysql -u root
+2. sudo mysql -u root -p
+
+QUITAR el componente de validacion de contraseya--> UNINSTALL COMPONENT "file://component_validate_password";
+-->exit
+--------------------------------------------------------------------------------------
+
+como quitamos validacion de contraseya, volvemos a ejecutar instar phpMyadmin:::
+
+--->sudo apt install phpmyadmin php-mbstring php-zip php-gd php-json php-curl
+
+--------------------------------------------------------------------------------
+ACTIVAR EL VALIDADOR DE CONTRASEÑAS: 
+1-->sudo mysql -u root
+2-->sudo mysql -u root -p
+ACTIVAR---------->>INSTALL COMPONENT "file://component_validate_password";
+exit
+
+------------------------------------------------------------------
+activar mbstring--> sudo phpenmod mbstring
+
+como se hizo un receteo, refrescar apache-->sudo systemctl restart apache2
+
+
+
+-------------------------------------------------------
+sudo mysql -u root -p da error:::
+ERROR 2002 (HY000): Can’t connect to local MySQL server through socket “/var/run/mysqld/mysqld.sock”
+Specify 127.0.0.1 as the host instead of localhost. That is, mysql -h 127.0.0.1 -u root instead of mysql -h localhost -u root. If you omit the host (mysql -u root), the MySQL client will implicitly use localhost.

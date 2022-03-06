@@ -1,0 +1,14 @@
+
+link: 
+Ubuntu Linux - Cómo cambiar la contraseña de root
+-----------------------------------
+
+OPCIONES:
+1. convertirse en usuario root y emitir passwd 
+-->sudo -i
+passwd
+2--Establezca una contraseña para el usuario root de una sola vez
+-->sudo passwd root
+sudo passwd root
+Pruebe su contraseña de root escribiendo el siguiente comando:
+--> su -

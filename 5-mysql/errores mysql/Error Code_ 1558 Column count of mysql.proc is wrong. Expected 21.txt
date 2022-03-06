@@ -1,0 +1,5 @@
+Error Code: 1558 Column count of mysql.proc is wrong. Expected 21, found 20. Created with MariaDB 100108, now running 100413. Please use mysql_upgrade to fix this error
+Solution:
+
+sudo /opt/lampp/lampp start
+/opt/lampp/bin/mysql_upgrade
