@@ -2,10 +2,12 @@
 echo "# indice_pruebas_codigo" >> README.md
 git init
 git add README.md
-git commit -m "first commit"
+git commit -m "first commit2"
 git branch -M main
+
+
 git remote add origin https://github.com/danielDaniel123456789/indice_pruebas_codigo.git
 git push -u origin main
 
 user: danielDaniel123456789
-token inglesVocabulario---> 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
+token ---> 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
